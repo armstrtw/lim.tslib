@@ -18,7 +18,7 @@
 #include <iostream>
 #include <vector>
 #include <map>
-#include <boost/test/included/unit_test.hpp>
+#include <boost/test/unit_test.hpp>
 
 #include <tslib/tseries.hpp>
 #include <xmim_api.h>

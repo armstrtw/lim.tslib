@@ -1,11 +1,11 @@
-XMIM_DIR     = /opt/lim/xmim
+XMIM_DIR     = /home/lim/xmim
 
 XMIM_LIBDIR  = $(XMIM_DIR)/lib
 XMIM_INCDIR  = $(XMIM_DIR)/include
 
 XMIM_LIB     = xmim
 
-LIBS     = -L$(XMIM_LIBDIR) -l$(XMIM_LIB) -lm -lnsl -lform
+LIBS     = -L$(XMIM_LIBDIR) -l$(XMIM_LIB) -lm -lnsl -lform -lboost_unit_test_framework
 
 CFLAGS = -Wall -O0 -g -fpic -I.. -I$(XMIM_INCDIR)
 CXXFLAGS = $(CFLAGS)
