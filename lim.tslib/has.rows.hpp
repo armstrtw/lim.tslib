@@ -34,22 +34,23 @@ namespace lim_tslib_interface {
 
     while(beg != end) {
       xmimReply = XmimGetDataRange(handle,
-				   const_cast<char*>(*beg++),
-				   const_cast<int>(ncols),
+				   const_cast<char*>(beg->c_str()),
+				   ncols,
 				   const_cast<char**>(&colnames),
 				   units,
 				   &fromDate,
 				   &toDate);
       if(xmimReply == XMIM_ERROR) {
 	XmimPrintError(const_cast<char*>("XmimGetDataRange"));
-	*cont++ = false;
+	*cont = false;
       } else {
 	if(fromDate.year == 0 || fromDate.month == 0 || fromDate.day == 0) {
-	  *cont++ = false;
+	  *cont = false;
 	} else {
-	  *cont++ = true;
+	  *cont = true;
 	}
       }
+      ++beg; ++cont;
     }
   }
 } // namespace lim_tslib_interface

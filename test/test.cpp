@@ -39,7 +39,7 @@ typedef TSeries<double,double,long,TSdataSingleThreaded,PosixDate> DDL_ts;
 static XmimClientHandle lim_handle;
 
 const XmimClientHandle limConnect() {
-  XmimClientHandle handle = -1;
+  XmimClientHandle handle = 0;
 
   char* limServer = getenv("LIM_SERVER");
   char* limPort_char = getenv("LIM_PORT");
@@ -83,7 +83,7 @@ void test_get_relation_all_cols() {
 											  xmim_units,
 											  numUnits);
   BOOST_CHECK( ans.nrow() > 0);
-  BOOST_CHECK( ans.ncol() == 1);
+  //BOOST_CHECK( ans.ncol() == 1);
 }
 
 void test_get_relation_types() {
@@ -132,6 +132,10 @@ void test_get_futures_series() {
 											 relname,
 											 xmim_units,
 											 numUnits);
+
+  for(std::map< std::string, LDL_ts>::iterator iter = ans.begin(); iter != ans.end(); iter++) {
+    std::cout << iter->first << std::endl;
+  }
 }
 
 
@@ -140,9 +144,7 @@ init_unit_test_suite( int argc, char* argv[] ) {
   test_suite* test= BOOST_TEST_SUITE("tslib test");
 
   lim_handle = limConnect();
-  if(!lim_handle) {
-    return test;
-  }
+
   test->add( BOOST_TEST_CASE( &test_get_relation_types ) );
   test->add( BOOST_TEST_CASE( &test_get_relation ) );
   test->add( BOOST_TEST_CASE( &test_get_relation_all_cols ) );

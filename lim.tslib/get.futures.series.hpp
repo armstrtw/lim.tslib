@@ -23,7 +23,7 @@
 #include <string>
 #include <tslib/tseries.hpp>
 #include <lim.tslib/get.relation.hpp>
-#include <lim.tslib/get.all.children.hpp>
+#include <lim.tslib/get.contract.names.hpp>
 
 namespace lim_tslib_interface {
   using namespace tslib;
@@ -48,7 +48,7 @@ namespace lim_tslib_interface {
 	     colnames.push_back("volume");
 	     colnames.push_back("OpenInterest");
 
-	     getAllChildren(handle, std::inserter(contractNames,contractNames.begin()), relname);
+             getContractNames(handle, std::inserter(contractNames,contractNames.begin()), relname, units);
     
 	     for(std::vector<std::string>::iterator iter = contractNames.begin(); iter != contractNames.end(); iter++) {
 	       cont[ *iter ] = getRelation<TDATE,TDATA,TSDIM,TSDATABACKEND,DatePolicy>(handle,
