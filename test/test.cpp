@@ -39,7 +39,7 @@ typedef TSeries<double,double,long,TSdataSingleThreaded,PosixDate> DDL_ts;
 static XmimClientHandle lim_handle;
 
 const XmimClientHandle limConnect() {
-  XmimClientHandle handle = NULL;
+  XmimClientHandle handle = -1;
 
   char* limServer = getenv("LIM_SERVER");
   char* limPort_char = getenv("LIM_PORT");
@@ -120,7 +120,7 @@ void test_get_perpetual_series() {
   BOOST_CHECK( ans.ncol() == 1);
 }
 
-/*
+
 void test_get_futures_series() {
   const char* relname = "TY";
   const XmimUnits xmim_units = XMIM_DAYS;
@@ -133,7 +133,7 @@ void test_get_futures_series() {
 											 xmim_units,
 											 numUnits);
 }
-*/
+
 
 test_suite*
 init_unit_test_suite( int argc, char* argv[] ) {
@@ -146,7 +146,7 @@ init_unit_test_suite( int argc, char* argv[] ) {
   test->add( BOOST_TEST_CASE( &test_get_relation_types ) );
   test->add( BOOST_TEST_CASE( &test_get_relation ) );
   test->add( BOOST_TEST_CASE( &test_get_relation_all_cols ) );
+  test->add( BOOST_TEST_CASE( &test_get_futures_series ) );
 
-  //test->add( BOOST_TEST_CASE( &test_get_futures_series ) );
   return test;
 }
