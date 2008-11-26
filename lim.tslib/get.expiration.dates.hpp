@@ -15,19 +15,32 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>. //
 ///////////////////////////////////////////////////////////////////////////
 
-#ifndef LIM_TSLIB_HPP
-#define LIM_TSLIB_HPP
+#ifndef GET_EXPIRATION_DATES_HPP
+#define GET_EXPIRATION_DATES_HPP
 
-#include <lim.tslib/get.all.children.hpp>
-#include <lim.tslib/get.contract.names.hpp>
-#include <lim.tslib/get.futures.series.hpp>
-#include <lim.tslib/get.perpetual.series.hpp>
-#include <lim.tslib/get.relation.all.cols.hpp>
-#include <lim.tslib/get.relation.hpp>
-#include <lim.tslib/xmim2tseries.hpp>
-#include <lim.tslib/get.relation.types.hpp>
-#include <lim.tslib/get.roll.dates.hpp>
-#include <lim.tslib/get.expiration.dates.hpp>
-#include <lim.tslib/has.rows.hpp>
+#include <string>
+#include <xmim_api.h>
 
-#endif // LIM_TSLIB_HPP
+namespace lim_tslib_interface {
+
+  template<typename T, typename U>
+  void getExpirationDates(const XmimClientHandle& handle, T cont, U beg, U end) {
+    XmimDate ex_date;
+
+    while(beg != end) {
+      ex_date.year = 0; ex_date.month = 0; ex_date.day = 0;
+
+      if(XmimVaGetRelation(XMIM_CLIENT_HANDLE, handle,
+                           XMIM_RELATION, const_cast<char*>(beg->c_str()),
+                           XMIM_EXPIRATION_DATE, &ex_date,
+                           XMIM_END_ARGS) != XMIM_SUCCESS) {
+        XmimPrintError(const_cast<char*>("XmimVaGetRelation"));
+      } else {
+        *cont++ = ex_date;
+      }
+      ++beg;
+    }
+  }
+} // namespace lim_tslib_interface
+
+#endif // GET_EXPIRATION_DATES_HPP
