@@ -28,8 +28,7 @@
 namespace lim_tslib_interface {
   using namespace tslib;
 
-  template<typename T,
-	   class TDATE,
+  template<class TDATE,
            class TDATA,
            class TSDIM,
            template<typename,typename,typename> class TSDATABACKEND,
