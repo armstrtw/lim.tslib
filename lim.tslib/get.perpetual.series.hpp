@@ -38,8 +38,8 @@ namespace lim_tslib_interface {
                                                                                const std::vector<std::string>& colnames,
                                                                                const char* rollDay,
                                                                                const char* rollPolicy,
-                                                                               const XmimUnits xunits,
-                                                                               const int bars)
+                                                                               const XmimUnits units,
+                                                                               const int numUnits)
 	   {
 	     int num_columns = colnames.size();
 	     int num_records = 0;
@@ -67,7 +67,7 @@ namespace lim_tslib_interface {
 						XMIM_RELATION, const_cast<char*>(relname),
 						XMIM_COLUMN_ARRAY, num_columns, xmim_columns,
 						XMIM_FROM_DATE, from_date,
-						XMIM_UNITS, bars, xunits,
+						XMIM_UNITS, numUnits, units,
 						XMIM_ROLLOVER_DAY, rollDay,
 						XMIM_ROLLOVER_POLICY, rollPolicy,
 						XMIM_NUM_RECORDS, &num_records,

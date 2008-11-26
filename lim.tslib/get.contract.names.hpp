@@ -32,7 +32,7 @@ namespace lim_tslib_interface {
 
   /* Returns a list of the names of all the contracts available from the LIM */
   template<typename T>
-  void getContractNames(const XmimClientHandle& handle, T cont, const char* relname, const XmimUnits units, const int bars) {    
+  void getContractNames(const XmimClientHandle& handle, T cont, const char* relname, const XmimUnits units) {
     std::set<std::string> tickers;
     std::vector<bool> has_rows;
     std::vector<XmimRelType> relTypes;

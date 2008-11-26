@@ -37,7 +37,7 @@ namespace lim_tslib_interface {
 			std::map< std::string, TSeries<TDATE,TDATA,TSDIM,TSDATABACKEND,DatePolicy> >& cont,
 			const char* relname,
 			const XmimUnits units,
-			const int bars)
+			const int numUnits)
 	   {
 	     std::vector<std::string> contractNames;
 	     std::vector<std::string> colnames;
@@ -55,7 +55,7 @@ namespace lim_tslib_interface {
 										       const_cast<char*>(iter->c_str()),
 										       colnames,
 										       units,
-										       bars);
+										       numUnits);
 	     }
 	   }
 } // namespace lim_tslib_interface 
