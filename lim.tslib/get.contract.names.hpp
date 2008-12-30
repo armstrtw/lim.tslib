@@ -33,25 +33,23 @@ namespace lim_tslib_interface {
   /* Returns a list of the names of all the contracts available from the LIM */
   template<typename T>
   void getContractNames(const XmimClientHandle& handle, T cont, const char* relname, const XmimUnits units) {
-    std::set<std::string> tickers;
+    std::vector<std::string> tickers;
     std::vector<bool> has_rows;
     std::vector<XmimRelType> relTypes;
 
     // read in all children
-    getAllChildren(handle, std::inserter(tickers,tickers.begin()), relname);
-
+    getAllChildren(handle, std::back_inserter(tickers), relname);
     // find rel types
-    getRelationTypes(handle, std::inserter(relTypes,relTypes.begin()), tickers.begin(), tickers.end());
-
+    getRelationTypes(handle, std::back_inserter(relTypes), tickers.begin(), tickers.end());
     // see if there is actual data in the relation
-    hasRows(handle, std::inserter(has_rows,has_rows.begin()), tickers.begin(), tickers.end(), units);
+    hasRows(handle, std::back_inserter(has_rows), tickers.begin(), tickers.end(), units);
 
     // drop out continuous contracts and such
     // only accept actual futures contracts
     std::vector<XmimRelType>::iterator relTypes_iter = relTypes.begin();
     std::vector<bool>::iterator has_rows_iter = has_rows.begin();
 
-    for(std::set<std::string>::iterator it = tickers.begin(); it != tickers.end(); it++) {
+    for(std::vector<std::string>::iterator it = tickers.begin(); it != tickers.end(); it++) {
       if(*relTypes_iter++ == XMIM_REL_FUTURES_CONTRACT && *has_rows_iter++) {
 	*cont++ = *it;
       }

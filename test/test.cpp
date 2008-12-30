@@ -134,10 +134,39 @@ void test_get_futures_series() {
 											 numUnits);
 
   for(std::map< std::string, LDL_ts>::iterator iter = ans.begin(); iter != ans.end(); iter++) {
-    std::cout << iter->first << std::endl;
+    cout << iter->first << endl;
   }
 }
 
+void test_get_contract_names() {
+  const char* relname = "LIF.I";
+  const XmimUnits xmim_units = XMIM_DAYS;
+  std::vector<std::string> ans;
+
+  lim_tslib_interface::getContractNames(lim_handle,back_inserter(ans),relname,xmim_units);
+
+  for(std::vector<std::string>::iterator it = ans.begin(); it != ans.end(); it++) {
+    cout << *it << endl;
+  }
+}
+
+void test_has_rows() {
+  const XmimUnits xmim_units = XMIM_DAYS;
+  std::vector<bool> ans;
+  std::vector<std::string> tickers;
+
+  tickers.push_back("LIF.I_1989M");
+  tickers.push_back("LIF.I_1989U");
+  tickers.push_back("LIF.I_1989Z");
+
+  // see if there is actual data in the relation
+  lim_tslib_interface::hasRows(lim_handle, std::inserter(ans,ans.begin()), tickers.begin(), tickers.end(), xmim_units);
+
+  for(std::vector<bool>::iterator it = ans.begin(); it != ans.end(); it++) {
+    cout << *it << endl;
+  }
+
+}
 
 test_suite*
 init_unit_test_suite( int argc, char* argv[] ) {
@@ -149,6 +178,8 @@ init_unit_test_suite( int argc, char* argv[] ) {
   test->add( BOOST_TEST_CASE( &test_get_relation ) );
   test->add( BOOST_TEST_CASE( &test_get_relation_all_cols ) );
   test->add( BOOST_TEST_CASE( &test_get_futures_series ) );
+  test->add( BOOST_TEST_CASE( &test_get_contract_names ) );
+  test->add( BOOST_TEST_CASE( &test_has_rows ) );
 
   return test;
 }
