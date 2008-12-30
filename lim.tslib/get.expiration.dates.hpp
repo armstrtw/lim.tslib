@@ -36,9 +36,9 @@ namespace lim_tslib_interface {
                            XMIM_END_ARGS) != XMIM_SUCCESS) {
         XmimPrintError(const_cast<char*>("XmimVaGetRelation"));
       } else {
-        *cont++ = ex_date;
+        *cont = ex_date;
       }
-      ++beg;
+      ++cont; ++beg;
     }
   }
 } // namespace lim_tslib_interface
