@@ -52,8 +52,8 @@ namespace lim_tslib_interface {
     for(std::vector<std::string>::iterator it = tickers.begin(); it != tickers.end(); it++) {
       if(*relTypes_iter == XMIM_REL_FUTURES_CONTRACT && *has_rows_iter) {
 	*cont = *it;
-        ++cont; ++relTypes_iter; ++has_rows_iter;
       }
+      ++cont; ++relTypes_iter; ++has_rows_iter;
     }
   }
 
